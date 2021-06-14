@@ -1,3 +1,36 @@
+
+# Created by https://www.gitignore.io/api/vim,node,macos
+# Edit at https://www.gitignore.io/?templates=vim,node,macos
+
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+### Node ###
 # Logs
 logs
 *.log
@@ -77,6 +110,13 @@ typings/
 
 # Next.js build output
 .next
+out
+
+# Next.js PWA worker
+**/public/workbox-*.js
+**/public/workbox-*.js.map
+**/public/sw.js
+**/public/sw.js.map
 
 # Nuxt.js build / generate output
 .nuxt
@@ -100,5 +140,40 @@ dist
 # DynamoDB Local files
 .dynamodb/
 
-# TernJS port file
-.tern-port
+### Vim ###
+# Swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Session
+Session.vim
+Sessionx.vim
+
+# Temporary
+.netrwhist
+*~
+# Auto-generated tag files
+tags
+# Persistent undo
+[._]*.un~
+
+# Bundle Analyzer
+bundles
+bundle
+
+# Dist Folder
+dist
+
+#Docusaurus website build folder
+documentation/website/build
+
+# local history plugin
+.history
+
+# storybook build folder
+.storybookout
+
+# End of https://www.gitignore.io/api/vim,node,macos

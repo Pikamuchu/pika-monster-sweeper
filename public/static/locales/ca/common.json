@@ -1,0 +1,19 @@
+{
+  "menu-title": "Monsweeper",
+  "menu-option-home": "Inici",
+  "menu-option-monster": "Monsters",
+  "menu-option-sweeper": "Sweepers",
+  "menu-option-about": "Quant a",
+  "search-placeholder": "Cerca d'un monster ...",
+  "search-submit-button": "Cerca",
+  "search-prompt-text": "Escriviu per cercar ...",
+  "search-search-text": "Cercant ...",
+  "change-locale": "Llengua",
+  "error-with-status": "S'ha produït un error {{statusCode}} al servidor",
+  "error-without-status": "S'ha produït un error al servidor",
+  "error-500-title": "Error del servidor",
+  "error-404-title": "No trobat",
+  "back-to-homepage": "Torna a l'inici",
+  "spinner-loading": "Carregant ...",
+  "back-to-top": "Torna a dalt"
+}

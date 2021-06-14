@@ -1,0 +1,19 @@
+{
+  "menu-title": "Monsweeper",
+  "menu-option-home": "Home",
+  "menu-option-monster": "Monsters",
+  "menu-option-sweeper": "Sweepers",
+  "menu-option-about": "About",
+  "search-placeholder": "Search for a monster...",
+  "search-submit-button": "Search",
+  "search-prompt-text": "Type to search...",
+  "search-searching-text": "Searching...",
+  "change-locale": "Locale",
+  "error-with-status": "A {{statusCode}} error occurred on server",
+  "error-without-status": "An error occurred on the server",
+  "error-500-title": "Server Error",
+  "error-404-title": "Not Found",
+  "back-to-homepage": "Back Home",
+  "spinner-loading": "Loading...",
+  "back-to-top": "Back to top"
+}
