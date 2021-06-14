@@ -1,8 +1,8 @@
 # Monster Sweeper
 
-[![Build Status](https://travis-ci.org/pikamachu/pika-sweeper-nextjs.svg?branch=master)](https://travis-ci.org/pikamachu/pika-sweeper-nextjs)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/4c9d6e8bd4ca4064b09326eb48ab416a)](https://www.codacy.com/gh/pikamachu/pika-sweeper-nextjs/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pikamachu/pika-sweeper-nextjs&amp;utm_campaign=Badge_Grade)
-[![codecov](https://codecov.io/gh/pikamachu/pika-sweeper-nextjs/branch/master/graph/badge.svg)](https://codecov.io/gh/pikamachu/pika-sweeper-nextjs)
+[![Build Status](https://travis-ci.org/pikamachu/pika-monster-sweeper.svg?branch=master)](https://travis-ci.org/pikamachu/pika-monster-sweeper)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/4c9d6e8bd4ca4064b09326eb48ab416a)](https://www.codacy.com/gh/pikamachu/pika-monster-sweeper/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pikamachu/pika-monster-sweeper&amp;utm_campaign=Badge_Grade)
+[![codecov](https://codecov.io/gh/pikamachu/pika-monster-sweeper/branch/master/graph/badge.svg)](https://codecov.io/gh/pikamachu/pika-monster-sweeper)
 
 ## Introduction
 
@@ -10,7 +10,7 @@ Monsweeper is a multiplayer minesweeper web game with monsters.
 
 You can browse the running example in [Monsweeper on Vercel](https://monsweeper.vercel.app/)
 
-You can preview source code using [codesandbox](https://codesandbox.io/s/github/pikamachu/pika-sweeper-nextjs/tree/master)
+You can preview source code using [codesandbox](https://codesandbox.io/s/github/pikamachu/pika-monster-sweeper/tree/master)
 
 ### Sweeper features
 
@@ -56,7 +56,7 @@ You can preview source code using [codesandbox](https://codesandbox.io/s/github/
 Clone the source code repository
 
 ```bash
-  git clone git@github.com:pikamachu/pika-sweeper-nextjs.git
+  git clone git@github.com:pikamachu/pika-monster-sweeper.git
 ```
 
 Install node modules dependencies
