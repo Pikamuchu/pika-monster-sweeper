@@ -2,6 +2,7 @@ import { createScreen, createAudio, createBall, createTarget } from './game/Game
 import { createGameState } from './game/GameStateHelpers';
 import { createGameActions } from './game/GameActionsHelpers';
 import { createGameEvents } from './game/GameEventsHelpers';
+import { getElementById } from './game/GameUtils';
 
 export default function sweeperGame(monster, sweeperSuccessCallback) {
   var minesweeper = {
@@ -180,7 +181,7 @@ export default function sweeperGame(monster, sweeperSuccessCallback) {
       $customWidthTxt.val(this.levels[this.defaultLevel].cols);
       $customMinesTxt.val(this.levels[this.defaultLevel].mines);
 
-      $intChecks = $customWidthTxt.add($customHeightTxt).add($customMinesTxt);
+      var $intChecks = $customWidthTxt.add($customHeightTxt).add($customMinesTxt);
       $intChecks.bind('keyup', function () {
         if (!/^\d+$/.test($(this).val())) {
           $(this).val('');
@@ -346,6 +347,7 @@ export default function sweeperGame(monster, sweeperSuccessCallback) {
         // which includes reference to jquery dom object
         for (i = 0; i < this.numRowsActual; i++) {
           for (j = 0; j < this.numColsActual; j++) {
+            var $elem;
             if (!(i < 1 || i > this.numRows || j < 1 || j > this.numCols)) {
               $elem = $(document.createElement('div')).attr('class', 'covered');
 
@@ -386,8 +388,8 @@ export default function sweeperGame(monster, sweeperSuccessCallback) {
     //-----------------------------------
 
     setClickEvents: function () {
-      for (i = 1; i <= this.numRows; i++) {
-        for (j = 1; j <= this.numCols; j++) {
+      for (var i = 1; i <= this.numRows; i++) {
+        for (var j = 1; j <= this.numCols; j++) {
           var self = this,
             cell = self.cells[i][j];
 

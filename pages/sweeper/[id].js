@@ -9,7 +9,7 @@ import { withTranslation } from '../../src/i18n';
 import { getMonsterDetails } from '../../src/models/monsterModel';
 import useMonster from '../../src/hooks/useMonster';
 
-const SweeperMonster = dynamic(() => import('../../src/components/sweeper/SweeperMonster'), { ssr: false });
+const Sweeper = dynamic(() => import('../../src/components/sweeper/Sweeper'), { ssr: false });
 
 const SweeperPage = ({ initialData, t }) => {
   const { data: monster } = useMonster({ id: initialData?.query?.id }, initialData?.monster);
@@ -19,7 +19,8 @@ const SweeperPage = ({ initialData, t }) => {
         <title>{`Monsweeper - ${t('sweeper-monster-title')} - ${monster?.id}`}</title>
       </Head>
       <Container className="sweeper-monster-page-container">
-        <SweeperMonster monster={monster} />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <Sweeper monster={monster} />
       </Container>
     </>
   );

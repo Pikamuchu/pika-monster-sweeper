@@ -33,7 +33,7 @@ const SweeperGame = ({ monster, t }) => {
       </div>
       <div className="sweeper-screen gradient-background hidden">
         <div className="sweeper-status hidden">
-          <h1>{`You caught ${monster.name}!`}</h1>
+          <h1>{`You caught ${monster?.name}!`}</h1>
         </div>
         <div className="poof-container hidden">
           <div className="poof" />
