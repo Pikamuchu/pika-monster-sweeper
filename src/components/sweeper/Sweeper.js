@@ -29,7 +29,7 @@ const SweeperGame = ({ monster, t }) => {
       <div id="particle-container" className="particle-container" />
       <div id="attack-container" className="attack-container" />
       <div className="screen gradient-background">
-        <div id="game"></div>
+        <div id="gameboard"></div>
       </div>
       <div className="sweeper-screen gradient-background hidden">
         <div className="sweeper-status hidden">

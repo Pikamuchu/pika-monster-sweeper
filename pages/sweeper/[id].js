@@ -19,7 +19,6 @@ const SweeperPage = ({ initialData, t }) => {
         <title>{`Monsweeper - ${t('sweeper-monster-title')} - ${monster?.id}`}</title>
       </Head>
       <Container className="sweeper-monster-page-container">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <Sweeper monster={monster} />
       </Container>
     </>
