@@ -7,7 +7,7 @@ import { Container } from 'react-bootstrap';
 
 import { withTranslation } from '../../src/i18n';
 
-const SweeperMonsterList = dynamic(() => import('../../src/components/sweeper/SweeperMonsterList'), { ssr: false });
+const SweeperList = dynamic(() => import('../../src/components/sweeper/SweeperList'), { ssr: false });
 
 const SweeperListPage = ({ t }) => {
   return (
@@ -17,7 +17,7 @@ const SweeperListPage = ({ t }) => {
       </Head>
       <Container className="monster-list-page-container">
         <h3>{t('sweeper-list-title')}</h3>
-        <SweeperMonsterList />
+        <SweeperList />
       </Container>
     </>
   );

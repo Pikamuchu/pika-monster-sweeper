@@ -29,24 +29,7 @@ const SweeperGame = ({ monster, t }) => {
       <div id="particle-container" className="particle-container" />
       <div id="attack-container" className="attack-container" />
       <div className="screen gradient-background">
-        <div id="ball" className="ball" />
-        <div className="output" />
-        <div className="motion-path">
-          <div id="target" className="target">
-            <div className="ring">
-              <div className="ring-active">
-                <div className="ring-fill" />
-              </div>
-            </div>
-          </div>
-          <svg width="100%" height="100%" viewBox="0 0 256 112">
-            {monster?.gameConfig?.motionPath ? (
-              <path fill="none" stroke="#FFF" d={monster.gameConfig.motionPath} />
-            ) : (
-              ''
-            )}
-          </svg>
-        </div>
+        <div id="game"></div>
       </div>
       <div className="sweeper-screen gradient-background hidden">
         <div className="sweeper-status hidden">

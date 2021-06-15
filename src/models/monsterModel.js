@@ -1,22 +1,12 @@
 import preferences from '../preferences';
 
-const Sweeper = require('sweeper-promise-v2');
-
-const P = new Sweeper({
-  protocol: 'https',
-  hostName: 'pokeapi.co',
-  versionPath: '/api/v2/',
-  cacheLimit: 100 * 1000, // 100s
-  timeout: 5 * 1000 // 5s
-});
+const Sweeper = {};
 
 const SEARCH_LIMIT = 893; // Excluding monsters 100xx (No images available)
 const LIST_CHUNK_SIZE = preferences.pageSize;
 const DEFAULT_LANG = 'en';
 
-const searchMonstersList = require('./data/searchMonstersData.json');
-const customMonstersList = require('./data/customMonstersData.json');
-const defaultData = require('./data/defaultMonsterData.json');
+const monsterList = require('./data/monsterData.json');
 
 export const getMonsters = async (query) => {
   let list;
@@ -48,7 +38,7 @@ export const getListItems = async (params) => {
 
 export const searchListItems = async (params, limit, offset) => {
   const searchTerm = params.q?.toLowerCase();
-  const results = searchMonstersList.filter(
+  const results = monsterList.filter(
     (item) => item.name?.includes(searchTerm) || item.types?.some((type) => type.name === searchTerm)
   );
   const list = getChunk(results, params.limit, params.offset);
@@ -83,44 +73,22 @@ export const getDetails = async (id, lang) => {
 };
 
 const getMonstersList = async () => {
-  let monstersList = [...customMonstersList];
-  try {
-    const pokeList = await P.getMonstersList({
-      limit: SEARCH_LIMIT
-    });
-    monstersList = [...pokeList.results, ...customMonstersList];
-  } catch (error) {
-    console.error(error);
-  }
+  let monstersList = [...monsterList];
   return monstersList;
 };
 
 const getMonsterByName = async (name) => {
   let monster = getCustomMonsterByName(name);
-  if (!monster) {
-    try {
-      monster = await P.getMonsterByName(name);
-    } catch (error) {
-      console.error(error);
-    }
-  }
   return monster;
 };
 
 const getMonsterSpeciesByName = async (name) => {
   let monsterSpecies = getCustomMonsterByName(name);
-  if (!monsterSpecies) {
-    try {
-      monsterSpecies = await P.getMonsterSpeciesByName(name);
-    } catch (error) {
-      console.error(error);
-    }
-  }
   return monsterSpecies;
 };
 
 const getCustomMonsterByName = (name) => {
-  return customMonstersList.find((item) => item.name === name);
+  return monsterList.find((item) => item.name === name);
 };
 
 const parseParams = (query) => {
@@ -205,7 +173,7 @@ const mapGameConfig = (gameConfig) => {
   return {
     attacks: gameConfig?.attacks || null,
     audio: gameConfig?.audio || null,
-    motionPath: gameConfig?.motionPath || defaultData.gameConfig.motionPath,
-    maxSuccesRate: gameConfig?.maxSuccesRate || defaultData.gameConfig.maxSuccesRate
+    motionPath: gameConfig?.motionPath || null,
+    maxSuccesRate: gameConfig?.maxSuccesRate || null
   };
 };

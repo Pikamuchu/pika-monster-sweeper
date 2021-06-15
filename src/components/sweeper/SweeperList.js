@@ -11,7 +11,7 @@ import { arrayPage } from '../../libs/utils';
 
 const SWEEPER_PAGE_SIZE = 20;
 
-const SweeperMonsterList = ({ t }) => {
+const SweeperList = ({ t }) => {
   const initialPageIndex = 1;
   const [pageIndex, setPageIndex] = useState(initialPageIndex);
   const { data: ids } = useSweeper();
@@ -40,8 +40,8 @@ const SweeperMonsterList = ({ t }) => {
   );
 };
 
-SweeperMonsterList.propTypes = {
+SweeperList.propTypes = {
   t: PropTypes.func.isRequired
 };
 
-export default withTranslation('sweeper')(SweeperMonsterList);
+export default withTranslation('sweeper')(SweeperList);
