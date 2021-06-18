@@ -1,276 +1,45 @@
-import { createScreen, createAudio, createBall, createTarget } from './game/GameElementsHelpers';
+import {
+  createScreen,
+  createAudio,
+  createScoreCounter,
+  createTimeCounter,
+  createSweeperField
+} from './game/GameElementsHelpers';
 import { createGameState } from './game/GameStateHelpers';
 import { createGameActions } from './game/GameActionsHelpers';
 import { createGameEvents } from './game/GameEventsHelpers';
 import { getElementById } from './game/GameUtils';
 
+/*
 export default function sweeperGame(monster, sweeperSuccessCallback) {
-  /*******Some inital configurations *****/
+  const screen = createScreen();
+  const audio = createAudio();
+
+  const ball = createBall(screen);
+  const target = createTarget(monster, screen);
+
+  const state = createGameState(ball, target, screen, audio);
+  const actions = createGameActions(ball, target, screen, state, sweeperSuccessCallback);
+
+  createGameEvents(screen, state, actions);
+
+  state.startGame();
+}
+*/
+
+export default function sweeperGame(monster, sweeperSuccessCallback) {
   var msRows = 10;
   var msColumns = 10;
   var mineCount = 20;
   var targetDiv = null;
-  var counterInterval = null;
-  var homeFolder = 'https://raw.githubusercontent.com/strahlistvan/minesweeper/devjs/';
 
-  /*********** ****************/
+  const screen = createScreen();
+  const audio = createAudio();
 
-  var ScoreCounter = {
-    targetDiv: null,
-    currentScore: 0,
-    self: this,
+  const ScoreCounter = createScoreCounter();
 
-    getScoreDivElement: function (scoreParam) {
-      var counterDiv = document.createElement('div');
-      counterDiv.id = 'counter';
-
-      var num1 = Math.floor((scoreParam % 1000) / 100);
-      var num1Img = document.createElement('img');
-      num1Img.src = homeFolder + 'Images/score/' + num1 + '.bmp';
-      num1Img.style.width = '30px';
-      num1Img.style.height = '30px';
-
-      var num2 = Math.floor((scoreParam % 100) / 10);
-      var num2Img = document.createElement('img');
-      num2Img.src = homeFolder + 'Images/score/' + num2 + '.bmp';
-      num2Img.style.width = '30px';
-      num2Img.style.height = '30px';
-
-      var num3 = scoreParam % 10;
-      var num3Img = document.createElement('img');
-      num3Img.src = homeFolder + '/Images/score/' + num3 + '.bmp';
-      num3Img.style.width = '30px';
-      num3Img.style.height = '30px';
-
-      counterDiv.appendChild(num1Img);
-      counterDiv.appendChild(num2Img);
-      counterDiv.appendChild(num3Img);
-
-      return counterDiv;
-    }
-  };
   /**** timecounter.js ******/
-  var TimeCounter = {
-    targetDiv: null,
-    currentSeconds: 0,
-    currentMinutes: 0,
-    isCounting: false,
-
-    /**  Returns a HTML DOM element which contains the current time in a div which ID is 'timer'. */
-    getTimerDivElement: function () {
-      this.isCounting = false;
-
-      var counterDiv = document.createElement('div');
-      counterDiv.id = 'timer';
-
-      var min1 = Math.floor(this.currentMinutes / 10) % 100;
-      var min1Img = document.createElement('img');
-      min1Img.src = homeFolder + 'Images/score/' + min1 + '.bmp';
-      min1Img.style.height = '30px';
-      min1Img.id = 'min1Img';
-
-      var min2 = this.currentMinutes % 10;
-      var min2Img = document.createElement('img');
-      min2Img.src = homeFolder + 'Images/score/' + min2 + '.bmp';
-      min2Img.style.height = '30px';
-      min2Img.id = 'min2Img';
-
-      var dotsImg = document.createElement('img');
-      dotsImg.src = homeFolder + 'Images/score/dots.bmp';
-      dotsImg.style.height = '30px';
-
-      var sec1 = Math.floor(this.currentSeconds / 10);
-      var sec1Img = document.createElement('img');
-      sec1Img.src = homeFolder + 'Images/score/' + sec1 + '.bmp';
-      sec1Img.style.height = '30px';
-      sec1Img.id = 'sec1Img';
-
-      var sec2 = this.currentSeconds % 10;
-      var sec2Img = document.createElement('img');
-      sec2Img.src = homeFolder + 'Images/score/' + sec2 + '.bmp';
-      sec2Img.style.height = '30px';
-      sec2Img.id = 'sec2Img';
-
-      counterDiv.appendChild(min1Img);
-      counterDiv.appendChild(min2Img);
-      counterDiv.appendChild(dotsImg);
-      counterDiv.appendChild(sec1Img);
-      counterDiv.appendChild(sec2Img);
-
-      return counterDiv;
-    },
-
-    /** Starts an interval what is refershing the timer div element secondly. */
-    startClock: function () {
-      this.isCounting = true;
-      var self = this;
-      self.isCounting = true;
-      counterInterval = setInterval(function () {
-        //Refresh timer HTML element
-        var timerElement = document.getElementById('timer').parentElement;
-        timerElement.innerHTML = '';
-        timerElement.appendChild(self.getTimerDivElement());
-
-        self.currentSeconds = (self.currentSeconds + 1) % 60;
-        self.currentMinutes = self.currentSeconds == 0 ? self.currentMinutes + 1 : self.currentMinutes;
-      }, 1000);
-    },
-
-    /** Clear the timer interval, stops the clock*/
-    stopClock: function () {
-      this.isCounting = false;
-      clearInterval(counterInterval);
-    },
-
-    /** Set the timer to 00:00 */
-    resetClock: function () {
-      this.currentMinutes = this.currentSeconds = 0;
-    }
-  };
-
-  /********* minesweeperfield.js *********/
-  function MineSweeperField(rowIndex, columnIndex, hasMinePar) {
-    this.flagged = false;
-    this.opened = false;
-    this.hasMine = hasMinePar;
-
-    var self = this;
-
-    this.msbtn = document.createElement('div');
-
-    this.appendTo = function (parentElement) {
-      self.msbtn.style.width = '40px';
-      self.msbtn.style.height = '40px';
-      self.msbtn.style.backgroundColor = 'lightgrey';
-      self.msbtn.class = 'self.msbtn';
-      self.msbtn.onmousedown = function (evt) {
-        if (MineSweeper.isPlayerDied) return;
-
-        var isRight = false;
-        var isLeft = false;
-
-        if ('which' in evt) {
-          isRight = evt.which == 3;
-          isLeft = evt.which == 1;
-        } else if ('button' in evt) {
-          isRight = evt.button == 3;
-          isLeft = evt.button == 1;
-        }
-
-        /** Handling click actions **/
-        if (isRight && !MineSweeper.isGameRunning) {
-          alert('Press left click in a field to start game');
-          return;
-        }
-
-        if (self.flagged) {
-          self.flagged = false;
-          ++MineSweeper.remainingMines;
-        } else if (isRight && !self.flagged && !self.opened) {
-          --MineSweeper.remainingMines;
-          self.flagged = true;
-          MineSweeper.repaintGrid(MineSweeper.getTargetDiv());
-
-          console.log('Mines left: ' + MineSweeper.remainingMines);
-        } else if (isLeft) {
-          if (!MineSweeper.isGameRunning) {
-            var cycle = 0; //to avoid infinite loops
-            do {
-              MineSweeper.clearField(rowIndex, columnIndex);
-              MineSweeper.placeMines();
-
-              console.log('cycle = ' + cycle++);
-            } while (
-              (MineSweeper.isMineField(rowIndex, columnIndex) ||
-                MineSweeper.countNeigbourMines(rowIndex, columnIndex) > 0) &&
-              cycle < 10000
-            );
-            //Start clock ticking...
-            TimeCounter.startClock();
-            MineSweeper.isGameRunning = true;
-          }
-
-          if (!self.flagged) {
-            if (MineSweeper.grid[rowIndex][columnIndex].hasMine) {
-              //explode!
-
-              var bangSound = new Audio(homeFolder + 'explosion.wav');
-              bangSound.play();
-
-              MineSweeper.grid[rowIndex][columnIndex].getButton().style.backgroundColor = 'red';
-              //stop timer
-              TimeCounter.stopClock();
-
-              MineSweeper.isPlayerDied = true;
-              MineSweeper.openAllFields();
-              MineSweeper.isGameRunning = false;
-            } //open field (no mine)
-            else {
-              MineSweeper.openField(self.getRowIndex(), self.getColumnIndex());
-            }
-          } //remove flag
-          else {
-            self.msbtn.style.backgroundImage = 'none';
-            ++MineSweeper.remainingMines;
-            self.flagged = false;
-
-            console.log('Mines left: ' + MineSweeper.remainingMines);
-          }
-        }
-        // you win!
-        if (!MineSweeper.hasOpenableField() && MineSweeper.isGameRunning) {
-          var winSound = new Audio(homeFolder + 'winner.wav');
-          winSound.play();
-          TimeCounter.stopClock();
-
-          MineSweeper.remainingMines = 0;
-          MineSweeper.isPlayerWin = true;
-          MineSweeper.openAllFields();
-          MineSweeper.isGameRunning = false;
-        }
-        MineSweeper.repaintGrid(MineSweeper.getTargetDiv());
-      };
-
-      parentElement.appendChild(self.msbtn);
-    };
-
-    this.getButton = function () {
-      return self.msbtn;
-    };
-
-    this.isOpened = function () {
-      return self.opened;
-    };
-
-    this.setOpened = function (isOpened) {
-      self.opened = isOpened;
-    };
-
-    this.isFlagged = function () {
-      return self.flagged;
-    };
-
-    this.setFlagged = function (isFlagged) {
-      self.flagged = isFlagged;
-    };
-
-    this.getRowIndex = function () {
-      return rowIndex;
-    };
-
-    this.getColumnIndex = function () {
-      return columnIndex;
-    };
-
-    this.getNeighbourMinesCount = function () {
-      return MineSweeper.countNeigbourMines(rowIndex, columnIndex);
-    };
-
-    this.isMineField = function () {
-      return this.hasMine;
-      return MineSweeper.isMineField(rowIndex, columnIndex);
-    };
-  }
+  const TimeCounter = createTimeCounter();
 
   /************* minesweeper.js ****************/
   window.oncontextmenu = function () {
@@ -289,7 +58,7 @@ export default function sweeperGame(monster, sweeperSuccessCallback) {
       for (var i = 0; i < rows; ++i) {
         this.grid[i] = new Array(columns);
         for (var j = 0; j < columns; ++j) {
-          this.grid[i][j] = new MineSweeperField(i, j, false);
+          this.grid[i][j] = createSweeperField(i, j, false);
           this.grid[i][j].hasMine = false;
         }
       }
@@ -381,7 +150,7 @@ export default function sweeperGame(monster, sweeperSuccessCallback) {
           var column = document.createElement('td');
           row.appendChild(column);
 
-          var msField = new MineSweeperField(i, j, false);
+          var msField = createSweeperField(i, j, false);
           msField.appendTo(column);
         }
 
@@ -693,20 +462,3 @@ export default function sweeperGame(monster, sweeperSuccessCallback) {
 
   window.onload = MineSweeper.create('gameboard');
 }
-
-/*
-export default function sweeperGame(monster, sweeperSuccessCallback) {
-  const screen = createScreen();
-  const audio = createAudio();
-
-  const ball = createBall(screen);
-  const target = createTarget(monster, screen);
-
-  const state = createGameState(ball, target, screen, audio);
-  const actions = createGameActions(ball, target, screen, state, sweeperSuccessCallback);
-
-  createGameEvents(screen, state, actions);
-
-  state.startGame();
-}
-*/
