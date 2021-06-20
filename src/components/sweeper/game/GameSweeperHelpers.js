@@ -331,27 +331,22 @@ export const createMineSweeper = (screen, config, ScoreCounter, TimeCounter) => 
       screen.targetDiv.innerHTML = '';
 
       var table = document.createElement('table');
-
       var thead = createHeader(config, screen, ScoreCounter, TimeCounter, MineSweeper);
       table.appendChild(thead);
+      screen.targetDiv.appendChild(table);
 
-      var tbody = document.createElement('tbody');
+      var board = document.createElement('div');
 
       for (var i = 0; i < config.msRows; ++i) {
-        var row = document.createElement('tr');
         for (var j = 0; j < config.msColumns; ++j) {
-          var column = document.createElement('td');
-          row.appendChild(column);
-
           var msField = createSweeperField(i, j, false, TimeCounter, MineSweeper);
-          msField.appendTo(column);
+          board.appendChild(msField);
         }
 
-        tbody.appendChild(row);
+        //tbody.appendChild(row);
       }
 
-      table.appendChild(tbody);
-      screen.targetDiv.appendChild(table);
+      screen.targetDiv.appendChild(board);
     },
 
     repaintGrid: function (parentId) {

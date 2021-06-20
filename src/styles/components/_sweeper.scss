@@ -1,525 +1,126 @@
-$sprite-url: "https://raw.githubusercontent.com/joelbyrd/external-resources/master/images/minesweeper.png";
-
-#game-container {
-	position: relative;
-}
-
-.window-wrapper-outer {
-	border: 1px solid;
-	border-color: #f1efe2 #716f64 #716f64 #f1efe2;
-}
-
-.window-wrapper-inner {
-	border: 1px solid;
-	border-color: #fff #aca899 #aca899 #fff;
-}
-
-.window-container {
-	position: relative;
-	background-color: #ece9d8;
-	padding: 1px;
-}
-
-#custom-level-dialog {
-	display: none;
-	position: absolute;
-	top: 30px;
-	left: 15px;
-	z-index: 3;
-	width: 200px;
-}
-
-.title-bar {
-	height: 25px;
-	background: #3d95ff url($sprite-url) no-repeat;
-	font-size: 0;
-	line-height: 0;    
-}
-
-#custom-title-bar {
-	background-position: 0 -110px;
-}
-
-#custom-dialog-content {
-	overflow: hidden;
-	font: 12px arial;
-	padding: 35px 15px;
-}
-
-#minesweeper-custom-fields {
-	float: left;
-}
-
-#minesweeper-custom-fields p {
-	clear: left;
-	margin: 0;
-	padding: 0;
-	margin-bottom: 4px;
-}
-
-#minesweeper-custom-fields label,
-#high-score-dialog label {
-	float: left;
-	width: 47px;
-	padding-top: 3px;
-}
-
-.form-textbox {
-	width: 35px;
-	height: 14px;
-	border: 2px solid;
-	border-color: #aca899 #fff #fff #aca899;
-}
-
-#minesweeper-custom-buttons {
-	float: right;
-}
-
-.form-button {
-	display: block;
-	width: 60px;
-	height: 25px;
-	background: #ece9d8;
-}
-
-#minesweeper-ok-btn {
-	margin-bottom: 18px;
-}
-
-#high-score-dialog {
-	display: none;
-	position: absolute;
-	top: 10px;
-	left: 15px;
-	z-index: 4;
-	width: 200px;
-}
-
-#high-score-dialog-content {
-	overflow: hidden;
-	font: 12px arial;
-	padding: 10px;
-}
-
-#high-score-dialog h2 {
-	font-size: 14px;
-	font-weight: bold;
-	text-transform: uppercase;
-	text-align: center;
-}
-
-#high-score-dialog #high-score-name-label {
-	width: 40px;
-}
-
-#high-score-name-textbox {
-	width: 120px;
-}
-
-#submit-high-score-container {
-	text-align: center;
-}
-
-#submit-high-score {
-	width: auto;
-}
-
-#minesweeper-board-wrapper {
-	position: relative;
-	background-color: #bdbdbd;
-	padding: 7px;
-	border-left: 3px solid #fff;
-	border-top: 3px solid #fff;
-}
-
-#minesweeper-title-bar {
-	background-position: 0 -84px;
-}
-
-/* begin menu */
-#menu-link-container {
-	overflow: hidden;
-	padding-top: 1px;
-}
-
-#menu-link {
-	float: left;
-	padding: 3px 6px;
-	color: #000;
-	text-decoration: none;
-	cursor: default;
-	font: 12px arial;
-}
-
-#menu-link:hover, #menu-link.active {
-	color: #fff;
-	background: #316ac5;
-}
-
-#menu {
-	display: none;
-	position: absolute;
-	top: -4px;
-	left: -3px;
-	z-index: 2;
-	list-style: none;
-	width: 122px;
-	margin: 0;
-	padding: 2px;
-	background: #fff;
-	border: 1px solid #aca899;
-	font: 12px arial;
-}
-
-#menu li {
-	display: block;
-	margin: 0;
-	padding: 4px 5px 4px 16px;
-	color: #000;
-	text-decoration: none;
-	cursor: default;
+/*
+* {
+    box-sizing: border-box;
 }
 
-#menu li:hover {
-	color: #fff;
-	background-color: #316ac5;
+body {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #dcd6bcdd;
 }
+*/
 
-#menu li.checked {
-	background-image: url($sprite-url);
-	background-repeat: no-repeat;
-	background-position: -136px -41px;
+.board-container {
+    max-width: 500px;
+    max-height: 580px;
+    width: 100vw;
+    height: calc(100vw + 80px);
+    align-content: center;
 }
 
-#menu li.checked:hover {
-	background-position: -134px -69px;        
-}    
-
-#menu li.menu-divider {
-	font-size: 0;
-	line-height: 0;
-	height: 0;
-	border-bottom: 1px solid #aca899;
-	margin: 5px 1px;
-	padding: 0;
-}
-/* end menu */
-
-#minesweeper-header-container {
-	padding: 3px 5px;
-	border: 2px solid;
-	border-color: #7d7d7d #fff #fff #7d7d7d;
-}
-
-#minesweeper-header-wrapper {
-	border-bottom: 7px solid #bdbdbd;
-}
-
-#minesweeper-header {
-	position: relative;
-	overflow: hidden;
-}
-
-#minefield {
-	overflow: hidden;
-	border: 3px solid;
-	border-color: #7d7d7d #fff #fff #7d7d7d;
-}
-
-#minefield div {
-	float: left;
-	width: 16px;
-	height: 16px;
-	background: url($sprite-url) no-repeat;
-}
-
-#minefield .covered         { background-position: 0 -39px; }
-#minefield .mines0          { background-position: 0 -23px; }
-#minefield .mines1          { background-position: -16px -23px; }
-#minefield .mines2          { background-position: -32px -23px; }
-#minefield .mines3          { background-position: -48px -23px; }
-#minefield .mines4          { background-position: -64px -23px; }
-#minefield .mines5          { background-position: -80px -23px; }
-#minefield .mines6          { background-position: -96px -23px; }
-#minefield .mines7          { background-position: -112px -23px; }
-#minefield .mines8          { background-position: -128px -23px; }
-#minefield .mine-hit        { background-position: -32px -39px; }
-#minefield .mine-misflagged { background-position: -48px -39px; }
-#minefield .mine            { background-position: -64px -39px; }
-#minefield .flag            { background-position: -16px -39px; }
-#minefield .question        { background-position: -80px -39px; }
-
-#mine-count,
-#timer {
-	overflow: hidden;
-	position: absolute;
-	top: 1px;
-	z-index: 1;
-	border: 1px solid;
-	border-color: #808080 #fff #fff #808080;
-}
-
-#mine-count { left: 0; }
-#timer { right: 0; }
-
-.numbers div {
-	float: left;
-	width: 13px;
-	height: 23px;
-	background: url($sprite-url) no-repeat;
-}
-
-#minesweeper-reset-button {
-	background: url($sprite-url) no-repeat;
-	height: 26px;
-	width: 26px;
-	margin: 0 auto;
-}
-
-#minesweeper-reset-button.face-smile      { background-position: 0 -55px; }
-#minesweeper-reset-button.face-pressed    { background-position: -26px -55px; }
-#minesweeper-reset-button.face-surprised  { background-position: -52px -55px; }
-#minesweeper-reset-button.face-sad        { background-position: -78px -55px; }
-#minesweeper-reset-button.face-sunglasses { background-position: -104px -55px; }
-
-.numbers .t0 { background-position: 0 0; }
-.numbers .t1 { background-position: -13px 0; }
-.numbers .t2 { background-position: -26px 0; }
-.numbers .t3 { background-position: -39px 0; }
-.numbers .t4 { background-position: -52px 0; }
-.numbers .t5 { background-position: -65px 0; }
-.numbers .t6 { background-position: -78px 0; }
-.numbers .t7 { background-position: -91px 0; }
-.numbers .t8 { background-position: -104px 0; }
-.numbers .t9 { background-position: -117px 0; }
-.numbers .tm { background-position: -130px 0; }
-
-//------------- Pikadex ------------------
-
-.gradient-background {
-  background: .00c6ff;
-  background: -webkit-linear-gradient(top, #f4dc26 0%, #fafa75 25%, #f8f8b0 55%, #fdfdec 100%);
-  background: linear-gradient(to bottom, #f4dc26 0%, #fafa75 25%, #f8f8b0 55%, #fdfdec 100%);
-}
-
-.screen,
-.wrapper,
-.touch-layer,
-.waves {
-  @extend .fixed-full-width;
-}
-
-.title {
-  padding-top: 150px;
-  position: fixed;
-  text-align: center;
-  width: 100%;
-  z-index: 11;
+.board-grid {
+    height: calc(100% - 80px);
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #dcd6bc;
+    border: 10px solid #dcd6bc;
+    box-shadow: 0 0 10vw #f5f3eb;
 }
 
-.screen,
-.sweeper-screen {
-  @extend .flex-center;
+.board-grid div,
+.text {
+    text-shadow: 1px 1px #9c998d;
+    text-align: center;
+    font-size: 25px;
+    font-family: monospace;
 }
 
-/* Accuracy ring */
-
-.ring {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: 150px;
-  height: 150px;
-  border: 2px solid white;
-  border-radius: 100px;
-}
-
-.ring-active {
-  border: 2px solid red;
-  border-radius: 100px;
-}
-
-.ring-fill {
-  width: 150px;
-  height: 150px;
-}
-
-/* Sweeper Screen */
-
-.sweeper-screen {
-  display: flex;
-  @extend .fixed-full-width;
-
-  flex-direction: column;
-  background-color: .222;
-
-  z-index: 12;
-}
-
-.poof-container {
-  @extend .flex-center;
-  position: fixed;
-  z-index: 10;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-}
-
-.poof {
-  width: 100%;
-  height: 20px;
-  opacity: 0.8;
-  background-image: url(#{$staticPath}/images/pikaball-poof.svg);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: contain;
+.text {
+        height: 30px;
+        margin: 5px 0;
 }
 
-.sweeper-ball {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  background-image: url(#{$staticPath}/images/pikaball.png);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+.valid {
+    height: 10%;
+    width: 10%;
+    border: 5px solid;
+    border-color: #f5f3eb #bab7a9 #bab7a9 #fff9db;
+    box-sizing: border-box;
 }
 
-.sweeper-ball-button-container {
-  @extend .flex-center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 5;
+.valid,
+.bomb {
+        cursor: pointer;
 }
 
-.sweeper-ball-button {
-  width: 30px;
-  height: 30px;
-  border-radius: 20px;
-  opacity: 0.8;
-  background-color: red;
-  animation: blink 0.4s alternate infinite;
-  animation-play-state: running;
-
-  &.active {
-    animation-iteration-count: 1;
-  }
-}
-
-.target {
-  position: relative;
-  top: -50%;
-  left: 0%;
-  width: 140px;
-  height: 140px;
-  transform: rotate(-10deg);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  z-index: 2;
-}
-
-.motion-path {
-  @extend .flex-center;
-  width: 100%;
-  height: 50%;
-}
-
-.motion-path path {
-  visibility: hidden;
+.checked {
+    height: 10%;
+    width: 10%;
+    border: 2px solid;
+    background-color: #cecab7;
+    border-color: #9c998d;
+    box-sizing: border-box;
+    cursor: no-drop;
 }
 
-.ball {
-  position: fixed;
-  height: 100px;
-  width: 100px;
-  border-radius: 25px;
-  bottom: 10%;
-  background-image: url(#{$staticPath}/images/pikaball.png);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  z-index: 30;
+.bomb {
+    height: 10%;
+    width: 10%;
+    border: 5px solid;
+    border-color: #f5f3eb #bab7a9 #bab7a9 #fff9db;
+    box-sizing: border-box;
 }
 
-.attack {
-  position: fixed;
-  height: 60px;
-  width: 60px;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  z-index: 30;
-}
-
-.touch-layer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  z-index: 10;
-}
-
-.sweeper-status {
-  position: absolute;
-  top: 150px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  z-index: 11;
-}
-
-.particle-container {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
+.one { color: #e76346; }
+.two { color: #4199d3; }
+.three { color: #57da59; }
+.four { color: #bb41d3; }
+#result { color: #e76346; }
 
-.particle {
-  position: fixed;
-  width: 7px;
-  height: 7px;
-  background-color: #fff;
-  border-radius: 5px;
-  opacity: 0.7;
-  z-index: 1;
+#flag,
+#help {
+    border: 5px solid;
+    border-color: #f5f3eb #bab7a9 #bab7a9 #fff9db;
+    text-shadow: 1px 1px #9c998d;
+    text-align: center;
+    font-family: monospace;
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
 }
 
-.sweeper-confetti {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: 60;
+#flag {
+    font-size: 20px;
+    float: left;
 }
 
-.sweeper-confetti > div.particle {
-  height: 10px;
-  width: 10px;
-  opacity: 0.9;
-  background-color: .4aa6fb;
+#flag.pressed {
+    border-color: #bab7a9 #fff9db #fff9db #bab7a9 ;
 }
 
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+#help {
+    font-size: 25px;
+    float: right;
 }
 
-.fixed-full-width {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
+@media (max-device-width: 500px) {
+    .grid div,
+    .text {
+        font-size: 5vw;
+    }
 }
 
-.hidden {
-  display: none !important;
+@media (max-device-height: 580px) and (orientation: landscape) {
+    .container {
+        width: calc(100vh - 80px);
+        height: 100vh;
+    }
+    .grid div,
+    .text {
+        font-size: 5vh;
+    }
 }
-

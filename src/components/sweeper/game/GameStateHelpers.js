@@ -1,7 +1,7 @@
-export function createGameState(ball, target, screen, audio) {
+export function createGameState(MineSweeper, screen, audio) {
   let gameRunning = 0;
   const isGameRunning = () => !!gameRunning;
-  const isGameVisible = () => !!target.getElement();
+  const isGameVisible = true; // = () => !!MineSweeper.getElement();
 
   let gameEvents = [];
   const addGameEvent = (eventFunction) => {
@@ -15,9 +15,6 @@ export function createGameState(ball, target, screen, audio) {
 
   const startGame = () => {
     resetState();
-    if (target.motion) {
-      target.motion.play();
-    }
     if (audio.music && audio.music.paused) {
       audio.music.muted = false;
       audio.music.loop = true;
@@ -28,8 +25,8 @@ export function createGameState(ball, target, screen, audio) {
 
   const pauseGame = () => {
     gameRunning = 0;
-    if (target.motion) {
-      target.motion.pause();
+    if (MineSweeper) {
+      //MineSweeper.pause();
     }
     if (audio.music) {
       audio.music.pause();
@@ -38,8 +35,8 @@ export function createGameState(ball, target, screen, audio) {
 
   const resumeGame = () => {
     gameRunning = 1;
-    if (target.motion) {
-      target.motion.play();
+    if (MineSweeper) {
+      //MineSweeper.play();
     }
     if (audio.music) {
       audio.music.play();
@@ -49,8 +46,7 @@ export function createGameState(ball, target, screen, audio) {
 
   const resetState = () => {
     gameRunning = 1;
-    ball.resetBall();
-    target.resetTarget();
+    //MineSweeper.reset();
   };
 
   return {

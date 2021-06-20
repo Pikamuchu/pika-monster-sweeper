@@ -3,30 +3,14 @@ import {
   createScreen,
   createAudio,
   createScoreCounter,
-  createTimeCounter,
-  createHeader
+  createTimeCounter
 } from './game/GameElementsHelpers';
-import { createGameState } from './game/GameStateHelpers';
 import { createMineSweeper } from './game/GameSweeperHelpers';
+import { createGameState } from './game/GameStateHelpers';
 import { createGameEvents } from './game/GameEventsHelpers';
+import { createGameActions } from './game/GameActionsHelpers';
+
 import { getElementById } from './game/GameUtils';
-
-/*
-export default function sweeperGame(monster, sweeperSuccessCallback) {
-  const screen = createScreen();
-  const audio = createAudio();
-
-  const ball = createBall(screen);
-  const target = createTarget(monster, screen);
-
-  const state = createGameState(ball, target, screen, audio);
-  const actions = createGameActions(ball, target, screen, state, sweeperSuccessCallback);
-
-  createGameEvents(screen, state, actions);
-
-  state.startGame();
-}
-*/
 
 export default function sweeperGame(monster, sweeperSuccessCallback) {
   const config = createConfig();
@@ -39,6 +23,14 @@ export default function sweeperGame(monster, sweeperSuccessCallback) {
   const TimeCounter = createTimeCounter(screen);
 
   const MineSweeper = createMineSweeper(screen, config, ScoreCounter, TimeCounter);
+
+  const state = createGameState(MineSweeper, screen, audio);
+
+  const actions = createGameActions(MineSweeper, screen, state, sweeperSuccessCallback);
+
+  createGameEvents(screen, state, actions);
+
+  state.startGame();
 
   /************* minesweeper.js ****************/
   window.oncontextmenu = function () {
