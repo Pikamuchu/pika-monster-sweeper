@@ -3,6 +3,7 @@
 import PropTypes from 'prop-types';
 import App from 'next/app';
 import { useEffect } from 'react';
+import { GlobalProvider } from '../src/context/GlobalContext';
 import { enableSpanner, disableSpanner } from '../src/libs/spanner';
 import * as gtag from '../src/libs/gtag';
 import Layout from '../src/components/layout/Layout';
@@ -12,25 +13,14 @@ import '../src/styles/main.scss';
 const MyApp = ({ Component, pageProps }) => {
   const router = Router;
   useEffect(() => {
-    const handleRouteChangeStart = () => {
-      enableSpanner();
-    };
-    const handleRouteChangeComplete = (url) => {
-      gtag.pageview(url);
-      disableSpanner();
-    };
-    router.events.on('routeChangeStart', handleRouteChangeStart);
-    router.events.on('routeChangeComplete', handleRouteChangeComplete);
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChangeStart);
-      router.events.off('routeChangeComplete', handleRouteChangeComplete);
-    };
+    return handleRouteEvents(router);
   }, [router.events]);
-
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <GlobalProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </GlobalProvider>
   );
 };
 
@@ -49,5 +39,21 @@ MyApp.getInitialProps = async (appContext) => {
     },
   };
 };
+
+const handleRouteEvents = (router) => {
+  const handleRouteChangeStart = () => {
+    enableSpanner();
+  };
+  const handleRouteChangeComplete = (url) => {
+    gtag.pageview(url);
+    disableSpanner();
+  };
+  router.events.on('routeChangeStart', handleRouteChangeStart);
+  router.events.on('routeChangeComplete', handleRouteChangeComplete);
+  return () => {
+    router.events.off('routeChangeStart', handleRouteChangeStart);
+    router.events.off('routeChangeComplete', handleRouteChangeComplete);
+  };
+}
 
 export default appWithTranslation(MyApp);

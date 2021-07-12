@@ -1,41 +1,29 @@
-import {
-  createConfig,
-  createScreen,
-  createAudio,
-  createScoreCounter,
-  createTimeCounter
-} from './game/GameElementsHelpers';
-import { createMineSweeper } from './game/GameSweeperHelpers';
-import { createGameState } from './game/GameStateHelpers';
-import { createGameEvents } from './game/GameEventsHelpers';
-import { createGameActions } from './game/GameActionsHelpers';
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable no-plusplus */
+import PropTypes from 'prop-types';
+import React, { useState, useContext } from 'react';
+import { withTranslation } from '../../i18n';
 
-import { getElementById } from './game/GameUtils';
+import Game from './game/Game';
+import { GameProvider } from './context/GameContext';
+import { useGlobal } from '../../context/GlobalContext';
 
-export default function sweeperGame(monster, sweeperSuccessCallback) {
-  const config = createConfig();
+const SweeperGame = ({ t }) => {
+  const { state, actions } = useGlobal();
+  return (
+    <GameProvider>
+      <Game />
+    </GameProvider>
+  );
+};
 
-  const screen = createScreen();
-  const audio = createAudio();
+SweeperGame.propTypes = {
+  t: PropTypes.func.isRequired,
+  i18nNamespaces: PropTypes.arrayOf(PropTypes.string),
+};
 
-  const ScoreCounter = createScoreCounter(screen);
+SweeperGame.defaultProps = {
+  i18nNamespaces: ['common', 'monster', 'sweeper'],
+};
 
-  const TimeCounter = createTimeCounter(screen);
-
-  const MineSweeper = createMineSweeper(screen, config, ScoreCounter, TimeCounter);
-
-  const state = createGameState(MineSweeper, screen, audio);
-
-  const actions = createGameActions(MineSweeper, screen, state, sweeperSuccessCallback);
-
-  createGameEvents(screen, state, actions);
-
-  state.startGame();
-
-  /************* minesweeper.js ****************/
-  window.oncontextmenu = function () {
-    return false;
-  };
-
-  window.onload = MineSweeper.create('gameboard');
-}
+export default withTranslation('sweeper')(SweeperGame);

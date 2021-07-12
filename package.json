@@ -39,6 +39,7 @@
     "autosuggest-highlight": "^3.1.1",
     "bootstrap": "^4.5.2",
     "bootswatch": "^4.5.2",
+    "classnames": "2.2.6",
     "hammerjs": "^2.0.8",
     "i18next": "^14.0.1",
     "isomorphic-unfetch": "^3.0.0",
@@ -47,11 +48,14 @@
     "next-pwa": "^3.1.3",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
+    "react-animations": "^1.0.0",
+    "react-countup": "^4.3.3",
     "react-autosuggest": "^10.0.2",
     "react-bootstrap": "^1.3.0",
     "react-dom": "^16.13.1",
+    "react-dom-confetti": "^0.2.0",
     "react-i18next": "^11.7.2",
-    "sass": "^1.26.10",
+    "sass": "~1.26.10",
     "swr": "^0.1.18"
   },
   "devDependencies": {

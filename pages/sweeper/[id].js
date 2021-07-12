@@ -2,14 +2,13 @@
 /* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
 import Head from 'next/head';
-import dynamic from 'next/dynamic';
 import { Container } from 'react-bootstrap';
 
 import { withTranslation } from '../../src/i18n';
 import { getMonsterDetails } from '../../src/models/monsterModel';
 import useMonster from '../../src/hooks/useMonster';
 
-const Sweeper = dynamic(() => import('../../src/components/sweeper/Sweeper'), { ssr: false });
+import SweeperGame from '../../src/components/sweeper/SweeperGame';
 
 const SweeperPage = ({ initialData, t }) => {
   const { data: monster } = useMonster({ id: initialData?.query?.id }, initialData?.monster);
@@ -19,7 +18,7 @@ const SweeperPage = ({ initialData, t }) => {
         <title>{`Monsweeper - ${t('sweeper-monster-title')} - ${monster?.id}`}</title>
       </Head>
       <Container className="sweeper-monster-page-container">
-        <Sweeper monster={monster} />
+        <SweeperGame />
       </Container>
     </>
   );

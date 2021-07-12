@@ -1,126 +1,91 @@
-/*
-* {
-    box-sizing: border-box;
+// *** form
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+};
+
+.styling {
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+};
+
+.form-container {
+  flex-direction: column;
+};
+
+.form {
+  flex-direction: column;
+  width: 30rem;
+  border-radius: 1rem;
+  padding: 2rem;
+  margin: auto;
+};
+
+.input-style {
+  text-align-last: center;
+  color: #0e1a49;
+  font-size: 1rem;
+  height: 2.5rem;
+  width: 15rem;
+  border: 1px solid #0e1a49;
+  border-radius: 1rem;
+  margin-left: 2rem;
+};
+
+.input-row {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  width: 36.5rem;
+  padding: 0 1rem;
+};
+
+.button-style {
+  font-size: 1rem;
+  height: 3.2rem;
+  width: 22rem;
+  font-weight: bold;
+  border-radius: 1rem;
+  margin: auto;
+  margin-top: 0.5rem;
+};
+
+.label-style {
+  font-size: 1.3rem;
+  padding-top: 3px;
+};
+
+// current minesweeper
+
+$tile: #f3f1ff;
+
+.mine-field {
+  width: 400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(8, 50px);
+  grid-template-rows: repeat(8, 50px);
 }
 
-body {
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: #dcd6bcdd;
-}
-*/
-
-.board-container {
-    max-width: 500px;
-    max-height: 580px;
-    width: 100vw;
-    height: calc(100vw + 80px);
-    align-content: center;
+.mine {
+  color: white;
+  border: 2px solid;
+  border-color: lighten($tile, 5%) darken($tile, 5%) darken($tile, 5%) lighten($tile, 5%);
+  background-color: $tile;
+  padding: 15px;
+  font-weight: 700;
+  font-size: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
-.board-grid {
-    height: calc(100% - 80px);
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    background-color: #dcd6bc;
-    border: 10px solid #dcd6bc;
-    box-shadow: 0 0 10vw #f5f3eb;
-}
-
-.board-grid div,
-.text {
-    text-shadow: 1px 1px #9c998d;
-    text-align: center;
-    font-size: 25px;
-    font-family: monospace;
-}
-
-.text {
-        height: 30px;
-        margin: 5px 0;
-}
-
-.valid {
-    height: 10%;
-    width: 10%;
-    border: 5px solid;
-    border-color: #f5f3eb #bab7a9 #bab7a9 #fff9db;
-    box-sizing: border-box;
-}
-
-.valid,
-.bomb {
-        cursor: pointer;
-}
-
-.checked {
-    height: 10%;
-    width: 10%;
-    border: 2px solid;
-    background-color: #cecab7;
-    border-color: #9c998d;
-    box-sizing: border-box;
-    cursor: no-drop;
-}
-
-.bomb {
-    height: 10%;
-    width: 10%;
-    border: 5px solid;
-    border-color: #f5f3eb #bab7a9 #bab7a9 #fff9db;
-    box-sizing: border-box;
-}
-
-.one { color: #e76346; }
-.two { color: #4199d3; }
-.three { color: #57da59; }
-.four { color: #bb41d3; }
-#result { color: #e76346; }
-
-#flag,
-#help {
-    border: 5px solid;
-    border-color: #f5f3eb #bab7a9 #bab7a9 #fff9db;
-    text-shadow: 1px 1px #9c998d;
-    text-align: center;
-    font-family: monospace;
-    width: 100px;
-    height: 40px;
-    cursor: pointer;
-}
-
-#flag {
-    font-size: 20px;
-    float: left;
-}
-
-#flag.pressed {
-    border-color: #bab7a9 #fff9db #fff9db #bab7a9 ;
-}
-
-#help {
-    font-size: 25px;
-    float: right;
-}
-
-@media (max-device-width: 500px) {
-    .grid div,
-    .text {
-        font-size: 5vw;
-    }
-}
-
-@media (max-device-height: 580px) and (orientation: landscape) {
-    .container {
-        width: calc(100vh - 80px);
-        height: 100vh;
-    }
-    .grid div,
-    .text {
-        font-size: 5vh;
-    }
+.mine-revealed {
+  border: 1px solid;
+  background-color: darken($tile, 2%);
+  border-color: darken($tile, 5%);
 }
