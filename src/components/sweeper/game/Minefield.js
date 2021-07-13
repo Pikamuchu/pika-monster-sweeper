@@ -8,7 +8,7 @@ const Minefield = () => {
 
   return (
     <div className="mine-field">
-      {state.minefield.map((mine, index) => (
+      {state.minefield && state.minefield.map((mine, index) => (
         <Mine mine={mine} key={`{mine-${index}`} />
       ))}
     </div>

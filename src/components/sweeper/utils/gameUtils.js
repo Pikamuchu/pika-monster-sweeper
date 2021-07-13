@@ -4,11 +4,10 @@ const baseMine = {
   flagged: false
 };
 
-export const generateMineField = (mines = 64) => {
-  let mineField = Array(mines).fill(baseMine);
-  mineField = generateCoordinates(mineField);
-  mineField = generateBombs(mineField);
-  mineField = getCountOfNeighborsWithBombs(mineField);
+export const generateMineField = (width, bombs) => {
+  const mineField = createBaseMineField(width);
+  addBombs(mineField, bombs);
+  addNeighborsCount(mineField);
   return mineField;
 };
 
@@ -62,15 +61,12 @@ export const unrevealedCountEqualsBombCount = minefield => {
   return unrevealed.length === bombs.length;
 };
 
-const generateBombs = mineField => {
+const addBombs = (mineField, numBombs) => {
   let totalBombs = 0;
-  const bombsAllowed = getRandomNumber(12, 16);
-
-  while (totalBombs < bombsAllowed) {
+  while (totalBombs < numBombs) {
     const x = getRandomNumber(0, 7);
     const y = getRandomNumber(0, 7);
-    let mine = mineField.find(m => m.y === y && m.x === x);
-
+    const mine = mineField.find(m => m.y === y && m.x === x);
     if (!mine.bomb) {
       mine.bomb = true;
       totalBombs++;
@@ -83,17 +79,24 @@ const getRandomNumber = (start, end) => {
   return Math.floor(Math.random() * (+start - +end) + +end);
 };
 
-const generateCoordinates = mineField => {
-  const map = mineField.map((mine, index) => {
-    if (index <= 7) {
-      return { ...mine, x: index, y: 0 };
-    } else {
-      const coordinate = Math.floor(index / 8);
-      return { ...mine, x: index % (coordinate * 8), y: coordinate };
+const createBaseMineField = (width) => {
+  const minefield = [];
+  const length = width * width;
+  for (let index = 0; index < length; index++) {
+    const mine = {
+      ...baseMine
     }
-  });
-
-  return map;
+    if (index < width) {
+      mine.x = index;
+      mine.y = 0;
+    } else {
+      const coordinate = Math.floor(index / width);
+      mine.x = index % (coordinate * width);
+      mine.y = coordinate;
+    }
+    minefield.push(mine)
+  }
+  return minefield;
 };
 
 const getNeighbors = (minefield, mine) => {
@@ -119,13 +122,9 @@ const getNeighbors = (minefield, mine) => {
   return [...sameLevel, ...upLevel, ...downLevel];
 };
 
-const getCountOfNeighborsWithBombs = minefield => {
-  const map = minefield.map(mine => {
+const addNeighborsCount = minefield => {
+  minefield.forEach(mine => {
     const neighborArray = getNeighbors(minefield, mine);
-    const neighbors = neighborArray.filter(neighbor => neighbor.bomb).length;
-
-    return { ...mine, neighbors };
+    mine.neighbors = neighborArray.filter(neighbor => neighbor.bomb).length;
   });
-
-  return map;
 };

@@ -9,7 +9,7 @@ const Button = () => {
   const { isGameWon, isGameOver } = state;
 
   const resetGame = () => {
-    const minefield = generateMineField();
+    const minefield = generateMineField(state.width, state.mines);
     const mines = minefield.filter((mine) => mine.bomb === true).length;
 
     dispatch({ type: 'SET_MINEFIELD', payload: minefield });

@@ -71,7 +71,7 @@ const SweeperCreate = ({ t }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    actions.setGameParams({ height, width, mines });
+    // actions.setGameParams({ height, width, mines });
     Router.push('/sweeper/play');
   };
 
